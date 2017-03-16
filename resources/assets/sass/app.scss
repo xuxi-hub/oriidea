@@ -1,2 +1,10 @@
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// 解决 “固定宽度的 .container 会导致 Safari 使用非常小的字号来打印页面” 的问题
+@media print {
+  .container {
+    width: auto;
+  }
+}
