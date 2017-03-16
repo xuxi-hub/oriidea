@@ -9,9 +9,7 @@ use App\Http\Controllers\Controller;
 
 class StaticPagesController extends Controller
 {
-    /**
-     * 主页
-     */
+    
     public function home()
     {
         return view('static_pages/home');
