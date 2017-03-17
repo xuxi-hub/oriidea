@@ -15,9 +15,6 @@
 
         <link rel="stylesheet" href="/css/app.css">
 
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css">
-
         <!--[if lt IE 9]>
         <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -36,7 +33,6 @@
             <div class="container"><span class="skiplink-text">直接进入主内容区</span>
             </div>
         </a>
-        <!-- 将“content” tavindex 设置为 -1 -->
         <!-- skippy **end -->
 
         <!-- 提示信息 -->
@@ -47,18 +43,6 @@
 
         @include('layouts._footer')
 
-        <script>
-            // 解决 “<select> 元素应用了 border-radius 或 border 样式，Android 系统默认的浏览器将不会显示侧边栏控件” 的问题
-            $(function () {
-                var nua = navigator.userAgent;
-                var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1);
-                if (isAndroid) {
-                    $('select.form-control').removeClass('form-control').css('width', '100%');
-                }
-            });
-        </script>
-
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="/js/ie10-viewport-bug-workaround.js"></script>
+        <script src="/js/app.js"></script>
     </body>
 </html>

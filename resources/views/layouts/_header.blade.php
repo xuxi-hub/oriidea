@@ -13,9 +13,6 @@
         <nav id="bs-navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="/">Home</a>
-                </li>
-                <li>
                     <a href="{{ route('about') }}">About</a>
                 </li>
                 <li>
@@ -23,12 +20,40 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+
+                @if (Auth::check())
+                <li class="dropdown">
+                    <a id="userDropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                        <li>
+                            <a href="{{ route('users.show', Auth::user()->id) }}">个人中心</a>
+                        </li>
+                        <li>
+                            <a href="#">编辑资料</a>
+                        </li>
+                        <li>
+                            <a id="logout" href="#">
+                                <form id="formLogout" action="{{ route('logout') }}" method="post">
+                                  {{ csrf_field() }}
+                                  {{ method_field('DELETE') }}
+                                  <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
+                                </form>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                @else
                 <li>
                     <a href="{{ route('signup') }}">注册</a>
                 </li>
                 <li>
-                    <a href="{{ route('signup') }}">登录</a>
+                    <a href="{{ route('login') }}">登录</a>
                 </li>
+                @endif
+
             </ul>
         </nav>
         <!-- bs-navbar  **end -->
