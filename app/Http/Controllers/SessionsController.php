@@ -42,15 +42,23 @@ class SessionsController extends Controller
        // 帐号、密码验证
        if (Auth::attempt($credentials, $request->has('remember'))) {
 
-           // 该用户存在于数据库，且邮箱和密码相符合，登录成功
-           session()->flash('success', '欢迎回来！');
-           // return redirect()->route('users.show', [Auth::user()]);
-           /*
-           * 使用 intended 方法实现更友好的转向。
-           * 将页面重定向到上一次请求尝试访问的页面上，并接收一个默认跳转地址参数，
-           * 当上一次请求记录为空时，跳转到默认地址上。
-           */
-           return redirect()->intended(route('users.show', [Auth::user()]));
+           // 添加邮件激活验证
+           if(Auth::user()->activated) {
+               // 该用户存在于数据库，且邮箱和密码相符合，登录成功
+               session()->flash('success', '欢迎回来！');
+               // return redirect()->route('users.show', [Auth::user()]);
+               /*
+               * 使用 intended 方法实现更友好的转向。
+               * 将页面重定向到上一次请求尝试访问的页面上，并接收一个默认跳转地址参数，
+               * 当上一次请求记录为空时，跳转到默认地址上。
+               */
+               return redirect()->intended(route('users.show', [Auth::user()]));
+           } else {
+               // 邮件未激活，跳转到首页并给予提示
+               Auth::logout();
+               session()->flash('warning', '你的账号未激活，请检查邮箱中的注册邮件进行激活。');
+               return redirect('/');
+           }
 
        } else {
 

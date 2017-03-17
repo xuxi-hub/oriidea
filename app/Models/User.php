@@ -37,6 +37,17 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+
+    public static function boot() // boot 方法会在用户模型类完成初始化之后进行加载
+    {
+        parent::boot();
+
+        // 监听 creating 方法，生成的用户激活令牌需要在用户模型创建之前生成
+        static::creating(function ($user) {
+            $user->activation_token = str_random(30);
+        });
+    }
+
     /**
     * 定义一个 gravatar 方法，生成用户头像
     */
