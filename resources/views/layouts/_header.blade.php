@@ -25,6 +25,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="{{ route('signup') }}">注册</a>
+                </li>
+                <li>
                     <a href="{{ route('signup') }}">登录</a>
                 </li>
             </ul>

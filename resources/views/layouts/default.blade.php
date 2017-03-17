@@ -39,6 +39,10 @@
         <!-- 将“content” tavindex 设置为 -1 -->
         <!-- skippy **end -->
 
+        <!-- 提示信息 -->
+        @include('shared._messages')
+
+        <!-- 主内容 -->
         @yield('content')
 
         @include('layouts._footer')
