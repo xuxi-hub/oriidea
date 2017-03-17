@@ -1,5 +1,10 @@
 <?php
 
+/*
+* 使用 get_db_config 方法对数据库进行配置
+*/
+$db_config = get_db_config();
+
 return [
 
     /*
@@ -26,7 +31,9 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    // 'default' => env('DB_CONNECTION', 'mysql'),
+    // 使用 get_db_config 方法对数据库进行配置
+    'default' => $db_config['connetion'],
 
     /*
     |--------------------------------------------------------------------------
@@ -64,12 +71,23 @@ return [
             'strict'    => false,
         ],
 
+        // 'pgsql' => [
+        //     'driver'   => 'pgsql',
+        //     'host'     => env('DB_HOST', 'localhost'),
+        //     'database' => env('DB_DATABASE', 'forge'),
+        //     'username' => env('DB_USERNAME', 'forge'),
+        //     'password' => env('DB_PASSWORD', ''),
+        //     'charset'  => 'utf8',
+        //     'prefix'   => '',
+        //     'schema'   => 'public',
+        // ],
+        // 使用 get_db_config 方法对数据库进行配置
         'pgsql' => [
             'driver'   => 'pgsql',
-            'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host'     => $db_config['host'],
+            'database' => $db_config['database'],
+            'username' => $db_config['username'],
+            'password' => $db_config['password'],
             'charset'  => 'utf8',
             'prefix'   => '',
             'schema'   => 'public',

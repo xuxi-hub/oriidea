@@ -32,3 +32,9 @@ $compiledPath = __DIR__.'/cache/compiled.php';
 if (file_exists($compiledPath)) {
     require $compiledPath;
 }
+
+/*
+* 加载 helpers 文件
+*/
+
+require __DIR__.'/helpers.php';
