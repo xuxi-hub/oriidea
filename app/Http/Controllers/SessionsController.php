@@ -12,12 +12,21 @@ use Auth;
 class SessionsController extends Controller
 {
 
+    // 只让未登录用户访问登录页面
+    public function __construct()
+    {
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
+
+    // 加载登录页
     public function create()
     {
         return view('sessions.login');
     }
 
-    // 登录
+    // 登录验证与存储
     public function store(Request $request)
     {
        $this->validate($request, [
@@ -35,7 +44,13 @@ class SessionsController extends Controller
 
            // 该用户存在于数据库，且邮箱和密码相符合，登录成功
            session()->flash('success', '欢迎回来！');
-           return redirect()->route('users.show', [Auth::user()]);
+           // return redirect()->route('users.show', [Auth::user()]);
+           /*
+           * 使用 intended 方法实现更友好的转向。
+           * 将页面重定向到上一次请求尝试访问的页面上，并接收一个默认跳转地址参数，
+           * 当上一次请求记录为空时，跳转到默认地址上。
+           */
+           return redirect()->intended(route('users.show', [Auth::user()]));
 
        } else {
 

@@ -38,7 +38,9 @@ class Authenticate
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('auth/login');
+                // return redirect()->guest('auth/login');
+                // 对 Auth 中间件默认的重定向地址进行更改，更改为/login。
+                return redirect()->guest('login');
             }
         }
 

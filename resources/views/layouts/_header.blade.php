@@ -22,6 +22,8 @@
             <ul class="nav navbar-nav navbar-right">
 
                 @if (Auth::check())
+
+                <li><a href="{{ route('users.index') }}">用户列表</a></li>
                 <li class="dropdown">
                     <a id="userDropdown" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }} <span class="caret"></span>
@@ -31,7 +33,7 @@
                             <a href="{{ route('users.show', Auth::user()->id) }}">个人中心</a>
                         </li>
                         <li>
-                            <a href="#">编辑资料</a>
+                            <a href="{{ route('users.edit', Auth::user()->id) }}">编辑资料</a>
                         </li>
                         <li>
                             <a id="logout" href="#">
