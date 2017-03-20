@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
         // 调用 call 方法来指定要运行假数据填充的文件
         $this->call('UsersTableSeeder');
 
+        // 指定调用微博数据填充文件
+        $this->call('StatusesTableSeeder');
+
         Model::reguard();
     }
 }

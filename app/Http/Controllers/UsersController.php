@@ -46,7 +46,12 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+
+        // 添加微博动态的读取逻辑
+        $statuses = $user->statuses()
+                         ->orderBy('created_at', 'desc')
+                         ->paginate(30);
+        return view('users.show', compact('user', 'statuses'));
     }
 
     // 用户注册验证与存储
