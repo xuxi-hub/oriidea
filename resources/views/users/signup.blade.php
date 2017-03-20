@@ -35,7 +35,7 @@
                     <p class="help-block">点击“注册”，即表示您同意遵守我们的《用户协议》、《隐私政策》及《Cookie 政策》。</p>
                     <button type="submit" class="btn btn-default">注册</button>
                     <hr>
-                    <div>已有帐号？<a href="{{ route('signup') }}">立即登录</a></div>
+                    <div>已有帐号？<a href="{{ route('login') }}">立即登录</a></div>
                 </form>
                 <!-- formSignup **end -->
             </div>
