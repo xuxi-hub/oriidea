@@ -22,3 +22,8 @@
 @-ms-viewport     { width: device-width; }
 @-o-viewport      { width: device-width; }
 @viewport         { width: device-width; }
+
+// 定义alert-status
+.alert-status {
+  @extend .alert-info;
+}

@@ -41,7 +41,7 @@
 
                     <button type="submit" class="btn btn-default">更新</button>
                 </form>
-                <!-- formSignup **end -->
+                <!-- formProfileEdit **end -->
             </div>
         </div>
     </div>

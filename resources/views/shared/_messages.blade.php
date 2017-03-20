@@ -1,4 +1,4 @@
-@foreach (['danger', 'warning', 'success', 'info'] as $msg)
+@foreach (['danger', 'warning', 'success', 'info', 'status'] as $msg)
   @if(session()->has($msg))
     <div class="message-container">
         <div class="alert alert-{{ $msg }} alert-dismissible" role="alert">
