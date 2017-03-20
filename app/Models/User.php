@@ -10,6 +10,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+use Auth;
+
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
@@ -66,7 +68,51 @@ class User extends Model implements AuthenticatableContract,
     // 将当前用户发布过的所有微博从数据库中取出，并根据创建时间来倒序排序
     public function feed()
     {
-        return $this->statuses()
-                    ->orderBy('created_at', 'desc');
+        // return $this->statuses()
+                    // ->orderBy('created_at', 'desc');
+
+        // 加入关注人的微博动态数据
+        $user_ids = Auth::user()->followings->pluck('id')->toArray();
+        array_push($user_ids, Auth::user()->id);
+        return Status::whereIn('user_id', $user_ids)
+                              ->with('user')
+                              ->orderBy('created_at', 'desc');
     }
+
+    // 粉丝列表
+    public function followers()
+    {
+        return $this->belongsToMany(User::Class, 'followers', 'user_id', 'follower_id');
+    }
+
+    // 关注列表
+    public function followings()
+    {
+        return $this->belongsToMany(User::Class, 'followers', 'follower_id', 'user_id');
+    }
+
+    // 关注
+    public function follow($user_ids)
+    {
+        if (!is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->sync($user_ids, false);
+    }
+
+    // 取消关注
+    public function unfollow($user_ids)
+    {
+        if (!is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->detach($user_ids);
+    }
+
+    // 判断当前登录用户是否关注了另一用户
+    public function isFollowing($user_id)
+    {
+        return $this->followings->contains($user_id);
+    }
+
 }

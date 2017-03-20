@@ -14,8 +14,11 @@
                     @include('shared._feed')
                 </div>
                 <aside class="col-md-4">
-                    <section class="user_info">
+                    <section class="user-info">
                         @include('shared._user_info', ['user' => Auth::user()])
+                    </section>
+                    <section class="stats">
+                        @include('shared._stats', ['user' => Auth::user()])
                     </section>
                 </aside>
             </div>

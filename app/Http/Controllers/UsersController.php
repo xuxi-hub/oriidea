@@ -17,9 +17,9 @@ class UsersController extends Controller
 
     public function __construct()
     {
-        //使用身份验证（Auth）中间件来过滤未登录用户的 edit, update, destroy 动作
+        //使用身份验证（Auth）中间件来过滤未登录用户的 edit, update, destroy, followings, followers 动作
         $this->middleware('auth', [
-            'only' => ['edit', 'update', 'destroy']
+            'only' => ['edit', 'update', 'destroy', 'followings', 'followers']
         ]);
 
         // 只让未登录用户访问注册页面
@@ -157,6 +157,24 @@ class UsersController extends Controller
         Auth::login($user); // 验证通过后自动登录
         session()->flash('success', '恭喜，激活成功！');
         return redirect()->route('users.show', [$user]);
+    }
+
+    // 粉丝
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followers()->paginate(10);
+        $title = '粉丝';
+        return view('users.show_follow', compact('users', 'title'));
+    }
+
+    // 关注的人
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followings()->paginate(10);
+        $title = '关注的人';
+        return view('users.show_follow', compact('users', 'title'));
     }
 
 }
